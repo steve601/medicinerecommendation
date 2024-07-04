@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>medicine Recommender System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: darkturquoise;
+        }
+        p{
+            color: black;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: gainsboro;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: black;
+        }
+        h2{
+            color: black;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: black;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: lightskyblue;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: lavender;
+        }
+        .recommendations {
+            margin-top: 20px;
+        }
+        .recommendations h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .recommendation-list {
+            display: flex;
+            justify-content: space-around;
+        }
+        .recommendation-item {
+            width: 18%;
+            text-align: center;
+        }
+        .recommendation-item img {
+            width: 100%;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Medicine Recommender System</h1>
+        <form method="POST" action="/recommend">
+            <div class="form-group">
+                <label for="phone">Select medicine:</label>
+                <select id="med" name="med">
+                    {% for item in med_names %}
+                        <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Get Recommendation</button>
+            </div>
+        </form>
+        {% if recommendations %}
+        <div class="recommendations">
+            <h2>Recommended medicines for {{ name_of_medicine }}</h2>
+            <div class="recommendation-list">
+                {% for md_name,md_img in recommendations.items() %}
+                <div class="recommendation-item">
+                    <img src="{{ md_img }}" alt= "{{ md_name }}">
+                    <p> "{{ md_name }}" </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
